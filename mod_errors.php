@@ -20,7 +20,7 @@ if( !file_exists($path . '/db') && !file_exists($path . '/public') ) {
 //
 // Search for the errors
 //
-$results = `grep "'code'=>" $path/*/*.php`;
+$results = `grep -H "'code'=>" $path/*/*.php`;
 $lines = explode("\n", $results);
 $errors = array();
 foreach($lines as $lid => $line) {
