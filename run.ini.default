@@ -5,11 +5,10 @@
 ; This system should really only be used for development purposes.
 ;
 php = /opt/local/bin/php56
-api = '/qruqsp/dev/site/qruqsp-rest.php'
+api = '~/projects/qruqsp/qruqsp.local/site/qruqsp-json.php'
 api_key = ''                            ; The API key generated for qruqsp-manage
 username = 'username'
 password = 'password'
 prompt = "api> "
 output = "json"                         ; Output the result as json pretty printed with spaces and indents
-;output = "print_r,json"                ; Output the result as both hash array dump and json pretty print
-log = "/var/log/apache2/access_log"
+log = "~/projects/qruqsp/qruqsp.local/logs/access.log"
