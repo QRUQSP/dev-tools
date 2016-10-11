@@ -134,12 +134,13 @@ function check_logs() {
 function login() {
     $php = $GLOBALS['php'];
     $api = $GLOBALS['api'];
-    $rest_args = "method=qruqsp.users.auth&api_key=" . $GLOBALS['api_key'] ."&auth_token=&username=" . $GLOBALS['username'] . "&password=" . $GLOBALS['password'];
+    $rest_args = "method=qruqsp.core.auth&api_key=" . $GLOBALS['api_key'] ."&auth_token=&username=" . $GLOBALS['username'] . "&password=" . $GLOBALS['password'];
 //    print "$php $api '$rest_args'\n";
     $login = `$php $api '$rest_args'`;
     $last_login = time();
-//  print_r($login);
-    if( preg_match('/auth token=\"([a-zA-Z0-9]*)\"/', $login, $matches) ) {
+//    print_r($login);
+
+    if( preg_match('/auth.*\"token\":\"([a-zA-Z0-9]*)\"/', $login, $matches) ) {
         $GLOBALS['auth_token'] = $matches[1];
 //      print_r($GLOBALS['auth_token']);
     } else {
