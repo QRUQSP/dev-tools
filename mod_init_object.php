@@ -85,7 +85,8 @@ print "\n";
 //
 require('private/objects.php');
 $fn = "{$package}_{$module}_objects";
-$rc = $fn(array());
+$q = array();
+$rc = $fn($q);
 $objects = $rc['objects'];
 
 if( !isset($objects[strtolower($object)]) ) {
@@ -1234,7 +1235,6 @@ function generate_ui() {
     // Setup the text blobs
     //
     foreach($object_def['fields'] as $field_id => $field) {
-        print_r($field);
         if( isset($field['dbtype']) ) {
             if( $field['dbtype'] == 'text' ) {
                 $file .= "        '_{$field_id}':{'label':'{$field['name']}', 'fields':{\n"
