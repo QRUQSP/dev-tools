@@ -375,10 +375,10 @@ function generate_delete() {
         . "    qruqsp_core_loadMethod(\$q, 'qruqsp', 'core', 'private', 'objectCheckUsed');\n"
         . "    \$rc = qruqsp_core_objectCheckUsed(\$q, \$args['station_id'], '{$package}.{$module}.{$object}', \$args['{$object_id}']);\n"
         . "    if( \$rc['stat'] != 'ok' ) {\n"
-        . "        return array('stat'=>'fail', 'err'=>array('code'=>'{$package}.{$module}." . $cur_code++ . "', 'msg'=>'Unable to check if {$object_def['name;']} is still being used.', 'err'=>\$rc['err']));\n"
+        . "        return array('stat'=>'fail', 'err'=>array('code'=>'{$package}.{$module}." . $cur_code++ . "', 'msg'=>'Unable to check if the " . strtolower($object_def['name']) . " is still being used.', 'err'=>\$rc['err']));\n"
         . "    }\n"
         . "    if( \$rc['used'] != 'no' ) {\n"
-        . "        return array('stat'=>'fail', 'err'=>array('code'=>'{$package}.{$module}." . $cur_code++ . "', 'msg'=>'The {$object_def['name']} is still in use. ' . \$rc['msg']));\n"
+        . "        return array('stat'=>'fail', 'err'=>array('code'=>'{$package}.{$module}." . $cur_code++ . "', 'msg'=>'The " . strtolower($object_def['name']) . " is still in use. ' . \$rc['msg']));\n"
         . "    }\n"
         . "\n"
         . "    //\n"
@@ -602,7 +602,27 @@ function generate_history() {
         . "        return \$rc;\n"
         . "    }\n"
         . "    \$args = \$rc['args'];\n"
-        . "\n"
+        . "\n";
+    //
+    // Check for special fields and return reformated values
+    //
+    foreach($object_def['fields'] as $field_id => $field) {
+        if( isset($field['type']) && $field['type'] == 'date' ) {
+            $file .= "    if( \$args['field'] == '{$field_id}' ) {\n"
+                . "        qruqsp_core_loadMethod(\$q, 'qruqsp', 'core', 'private', 'dbGetModuleHistoryReformat');\n"
+                . "        return qruqsp_core_dbGetModuleHistoryReformat(\$q, '{$package}.{$module}', '{$package}_{$module}_history', \$args['business_id'], '{$object_def['table']}', \$args['{$object_id}'], \$args['field'], 'date');\n"
+                . "    }\n"
+                . "\n";
+        }
+        elseif( isset($field['type']) && $field['type'] == 'currency' ) {
+            $file .= "    if( \$args['field'] == '{$field_id}' ) {\n"
+                . "        qruqsp_core_loadMethod(\$q, 'qruqsp', 'core', 'private', 'dbGetModuleHistoryReformat');\n"
+                . "        return qruqsp_core_dbGetModuleHistoryReformat(\$q, '{$package}.{$module}', '{$package}_{$module}_history', \$args['business_id'], '{$object_def['table']}', \$args['{$object_id}'], \$args['field'], 'currency');\n"
+                . "    }\n"
+                . "\n";
+        }
+    }
+    $file .= ""
         . "    //\n"
         . "    // Check access to station_id as owner, or sys admin\n"
         . "    //\n"
@@ -1262,6 +1282,7 @@ function generate_ui() {
         . "    }\n"
         . "    this.{$p_name}.save = function(cb) {\n"
         . "        if( cb == null ) { cb = 'M.{$package}_{$module}_main.{$p_name}.close();'; }\n"
+        . "        if( !this.checkForm() ) { return false; }\n"
         . "        if( this.{$object_id} > 0 ) {\n"
         . "            var c = this.serializeForm('no');\n"
         . "            if( c != '' ) {\n"
