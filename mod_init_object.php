@@ -83,7 +83,7 @@ print "\n";
 //
 // Load the objects
 //
-require('./private/objects.php');
+require('private/objects.php');
 $fn = "{$package}_{$module}_objects";
 $rc = $fn(array());
 $objects = $rc['objects'];
