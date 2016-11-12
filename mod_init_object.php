@@ -1021,7 +1021,7 @@ function generate_update() {
         . "    // Update the last_change date in the station modules\n"
         . "    // Ignore the result, as we don't want to stop user updates if this fails.\n"
         . "    //\n"
-        . "    qruqsp_core_loadMethod(\$q, '{$package}', 'core', 'private', 'updateModuleChangeDate');\n"
+        . "    qruqsp_core_loadMethod(\$q, 'qruqsp', 'core', 'private', 'updateModuleChangeDate');\n"
         . "    qruqsp_core_updateModuleChangeDate(\$q, \$args['station_id'], '{$package}', '{$module}');\n"
         . "\n"
         . "    //\n"
