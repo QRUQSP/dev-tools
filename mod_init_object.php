@@ -1202,7 +1202,7 @@ function generate_ui() {
             . "                    return true;\n"
             . "                    },\n"
             . "                'addDropImageRefresh':'',\n"
-            . "                'addDropImage':function(fid) {\n"
+            . "                'removeImage':function(fid) {\n"
             . "                    Q.{$package}_{$module}_main.{$p_name}.setFieldValue(fid,0);\n"
             . "                    return true;\n"
             . "                 },\n"
