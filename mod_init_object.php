@@ -1185,7 +1185,7 @@ function generate_ui() {
         . "    this.{$p_name} = new Q.panel('{$object_def['name']}', '{$package}_{$module}_main', '{$p_name}', 'mc', 'medium mediumaside', 'sectioned', '{$package}.{$module}.main.{$p_name}');\n"
         . "    this.{$p_name}.data = null;\n"
         . "    this.{$p_name}.{$object_id} = 0;\n"
-        . ($options['nextprev'] == 'yes' ? "    this.nplist = [];\n" : "")
+        . ($options['nextprev'] == 'yes' ? "    this.{$p_name}.nplist = [];\n" : "")
         . "    this.{$p_name}.sections = {\n"
         . "";
     //
@@ -1329,7 +1329,7 @@ function generate_ui() {
             . "    }\n"
             . "    this.{$p_name}.prevButtonFn = function() {\n"
             . "        if( this.nplist != null && this.nplist.indexOf('' + this.{$object_id}) > 0 ) {\n"
-            . "            return 'Q.{$package}_{$module}_main.{$p_name}.save(\'Q.{$package}_{$module}_main.{$object_id}.open(null,' + this.nplist[this.nplist.indexOf('' + this.{$object_id}) - 1] + ');\');';\n"
+            . "            return 'Q.{$package}_{$module}_main.{$p_name}.save(\'Q.{$package}_{$module}_main.{$p_name}.open(null,' + this.nplist[this.nplist.indexOf('' + this.{$object_id}) - 1] + ');\');';\n"
             . "        }\n"
             . "        return null;\n"
             . "    }\n"

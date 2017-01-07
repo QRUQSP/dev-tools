@@ -272,7 +272,6 @@ function generate_checkAccess() {
         . "        . \"FROM qruqsp_core_station_users \"\n"
         . "        . \"WHERE station_id = '\" . qruqsp_core_dbQuote(\$q, \$station_id) . \"' \"\n"
         . "        . \"AND user_id = '\" . qruqsp_core_dbQuote(\$q, \$q['session']['user']['id']) . \"' \"\n"
-        . "        . \"AND package = '$package' \"\n"
         . "        . \"AND status = 10 \"\n"
         . "        . \"AND permission_group = 'operators' \"\n"
         . "        . \"\";\n"
